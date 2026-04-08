@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>夏丹 · 个人学术信息页（含视频）</title>
+    <style>
+        /* 重置与基础风格——百科式的简约与清晰 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            font-family: -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: #1e1e1e;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 主容器 */
+        .wiki-page {
+            max-width: 900px;
+            width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0 2px 12px 0 rgba(0,0,0,0.05);
+            border-radius: 2px;
+            padding: 40px 45px 50px 45px;
+            border: 1px solid #e9e9e9;
+        }
+
+        /* 头部区域 */
+        .name-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            border-bottom: 1px solid #e8e8e8;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .name-title h1 {
+            font-size: 2.8rem;
+            font-weight: 450;
+            color: #000000;
+            line-height: 1.2;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .sub-titles {
+            font-size: 1rem;
+            color: #6f6f6f;
+            font-weight: 350;
+        }
+
+        .basic-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            gap: 8px 25px;
+            background: #fafafa;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin-top: 8px;
+        }
+
+        .info-item {
+            display: flex;
+            white-space: nowrap;
+        }
+
+        .info-label {
+            font-weight: 400;
+            color: #8c8c8c;
+            width: 75px;
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            font-weight: 400;
+            color: #1e1e1e;
+        }
+
+        /* 图片与简介区域 */
+        .profile-media {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 20px 0 15px;
+            align-items: flex-start;
+        }
+
+        /* 图片容器 */
+        .image-container {
+            flex: 0 0 160px;
+            max-width: 160px;
+            border: 1px solid #e0e0e0;
+            background-color: #f8f8f8;
+            border-radius: 4px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .actual-image {
+            width: 140px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 2px;
+            border: 1px solid #d9d2ca;
+            background: #fff;
+            display: block;
+            margin: 0 auto 8px auto;
+        }
+
+        .image-caption {
+            font-size: 0.8rem;
+            color: #8e847b;
+            border-top: 1px solid #dbd5cf;
+            padding-top: 6px;
+            margin-top: 4px;
+        }
+
+        .intro-text {
+            flex: 1;
+            min-width: 250px;
+            background: #fafafa;
+            padding: 18px 22px;
+            border-radius: 8px;
+            border-left: 3px solid #c92c2c;
+            font-size: 1.05rem;
+            font-weight: 350;
+            color: #2e2e2e;
+        }
+
+        .section {
+            margin: 32px 0 28px 0;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 420;
+            color: #2b2b2b;
+            border-left: 6px solid #c92c2c;
+            padding-left: 16px;
+            margin-bottom: 22px;
+            line-height: 1.4;
+            letter-spacing: 0.5px;
+        }
+
+        .timeline-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .timeline-list li {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            border-bottom: 1px dashed #f0f0f0;
+            padding-bottom: 8px;
+        }
+
+        .timeline-date {
+            font-weight: 430;
+            color: #3d3d3d;
+            min-width: 140px;
+            flex-shrink: 0;
+        }
+
+        .timeline-desc {
+            font-weight: 350;
+            color: #3a3a3a;
+        }
+
+        .timeline-desc strong {
+            font-weight: 520;
+            color: #1f1f1f;
+        }
+
+        .desc-text {
+            font-size: 1.05rem;
+            font-weight: 350;
+            color: #2e2e2e;
+            margin: 10px 0 10px 0;
+            padding-left: 8px;
+        }
+
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 16px;
+            margin: 10px 0 5px;
+        }
+
+        .tag {
+            background-color: #f4f4f4;
+            color: #2c2c2c;
+            padding: 5px 18px;
+            border-radius: 30px;
+            font-size: 0.98rem;
+            font-weight: 350;
+            border: 1px solid #e0e0e0;
+        }
+
+        .award-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .award-list li {
+            margin-bottom: 10px;
+            font-size: 1.02rem;
+            font-weight: 350;
+            position: relative;
+            padding-left: 22px;
+        }
+
+        .award-list li::before {
+            content: "•";
+            color: #c92c2c;
+            font-weight: bold;
+            font-size: 1.4rem;
+            position: absolute;
+            left: 2px;
+            top: -6px;
+        }
+
+        /* 新增视频区域样式 */
+        .video-section {
+            margin: 40px 0 20px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 25px 25px 20px 25px;
+            border: 1px solid #ece8e2;
+        }
+
+        .video-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            font-size: 1.2rem;
+            font-weight: 420;
+            color: #3d3d3d;
+            border-bottom: 1px solid #e0d9d0;
+            padding-bottom: 12px;
+        }
+
+        .video-title span {
+            background: #c92c2c;
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        .video-container {
+            width: 100%;
+            background: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 18px -6px rgba(0,0,0,0.2);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #000;
+        }
+
+        .video-caption {
+            font-size: 0.9rem;
+            color: #6f645b;
+            margin-top: 14px;
+            text-align: center;
+            font-style: italic;
+            background: #f2efea;
+            padding: 8px 15px;
+            border-radius: 40px;
+            display: inline-block;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .references {
+            margin-top: 45px;
+            border-top: 1px solid #dadada;
+            padding-top: 20px;
+        }
+
+        .ref-title {
+            font-size: 1.2rem;
+            font-weight: 450;
+            color: #494949;
+            margin-bottom: 12px;
+        }
+
+        .ref-list {
+            list-style: none;
+            font-size: 0.9rem;
+            color: #6f6f6f;
+            line-height: 1.8;
+        }
+
+        .ref-list li {
+            margin-bottom: 5px;
+            border-bottom: 1px dotted #ececec;
+            padding-bottom: 4px;
+        }
+
+        .wiki-footer {
+            text-align: right;
+            font-size: 0.85rem;
+            color: #a1a1a1;
+            margin-top: 25px;
+            border-top: 1px solid #ececec;
+            padding-top: 18px;
+        }
+
+        .voice-toolbar {
+            background: #fafafa;
+            border: 1px solid #eaeaea;
+            padding: 8px 18px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            margin: 15px 0 5px;
+            font-size: 0.9rem;
+            color: #5a5a5a;
+        }
+
+        .voice-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: default;
+        }
+
+        .voice-item span {
+            color: #b3b3b3;
+        }
+
+        .separator-dot {
+            width: 4px;
+            height: 4px;
+            background: #ccc;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 8px;
+        }
+
+        @media (max-width: 650px) {
+            .wiki-page {
+                padding: 25px 18px;
+            }
+            .profile-media {
+                flex-direction: column;
+                align-items: center;
+            }
+            .image-container {
+                flex: 0 0 auto;
+            }
+            .timeline-list li {
+                flex-direction: column;
+            }
+            .timeline-date {
+                min-width: auto;
+                margin-bottom: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wiki-page">
+        <!-- 头部 -->
+        <div class="name-header">
+            <div class="name-title">
+                <h1>夏丹</h1>
+                <div class="sub-titles">汉语国际教育 · 大三</div>
+            </div>
+            <div class="basic-info-grid">
+                <div class="info-item"><span class="info-label">中文名</span><span class="info-value">夏丹</span></div>
+                <div class="info-item"><span class="info-label">专业方向</span><span class="info-value">汉语国际教育、跨文化交流</span></div>
+                <div class="info-item"><span class="info-label">当前年级</span><span class="info-value">大三 (2023级)</span></div>
+                <div class="info-item"><span class="info-label">毕业院校</span><span class="info-value">XX大学 (在读)</span></div>
+                <div class="info-item"><span class="info-label">学位/学历</span><span class="info-value">文学学士（预计2026）</span></div>
+                <div class="info-item"><span class="info-label">研究兴趣</span><span class="info-value">第二语言习得、文化教学</span></div>
+            </div>
+        </div>
+
+        <div class="voice-toolbar">
+            <span class="voice-item">🔊 选择朗读音色</span>
+            <span class="voice-item">成熟女声<span>⚬</span></span>
+            <span class="voice-item">成熟男声<span>⚬</span></span>
+            <span class="voice-item">磁性男声</span>
+            <span class="separator-dot"></span>
+            <span class="voice-item">1.0x</span>
+        </div>
+
+        <!-- 图片与简介区域 -->
+        <div class="profile-media">
+            <div class="image-container">
+                <img class="actual-image" 
+                     src="个人图片.jpg" 
+                     alt="夏丹个人照片"
+                     onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22140%22%20height%3D%22160%22%20viewBox%3D%220%200%20140%20160%22%3E%3Crect%20width%3D%22140%22%20height%3D%22160%22%20fill%3D%22%23f0ece7%22%2F%3E%3Ctext%20x%3D%2220%22%20y%3D%2285%22%20font-family%3D%22system-ui%22%20font-size%3D%2214%22%20fill%3D%22%2380776d%22%3E图片未找到%3C%2Ftext%3E%3C%2Fsvg%3E'; this.alt='图片加载失败';">
+                <div class="image-caption">
+                    个人近照 · 夏丹
+                </div>
+            </div>
+            <div class="intro-text">
+                夏丹，XX大学人文学院汉语国际教育专业大三学生。乐于探索语言背后的文化逻辑，希望通过教学让汉语更可亲。已完成国际中文教师笔试基础阶段，目前参与多项留学生语伴项目。
+            </div>
+        </div>
+
+        <!-- 人物简介 -->
+        <div class="section">
+            <h2 class="section-title">人物简介</h2>
+            <ul class="timeline-list">
+                <li><span class="timeline-date">2023年9月-2026年7月</span><span class="timeline-desc"><strong>XX大学 人文学院</strong> 汉语国际教育专业 攻读学士学位（大三在读）</span></li>
+                <li><span class="timeline-date">2025年3月-至今</span><span class="timeline-desc"><strong>校级国际交流志愿者</strong> 协助留学生中文辅导及文化适应活动</span></li>
+                <li><span class="timeline-date">2024年12月</span><span class="timeline-desc"><strong>通过国际中文教师笔试（基础阶段）</strong> 具备对外汉语教学基础知识</span></li>
+            </ul>
+            <div class="desc-text">
+                预计于2026年6月毕业并计划攻读汉语国际教育硕士，持续关注中文教育与国际文化的融合。
+            </div>
+        </div>
+
+        <!-- ========= 新增视频播放区域 ========= -->
+        <div class="video-section">
+            <div class="video-title">
+                🎬 教学实践短片 · 微课试讲
+                <span>可播放</span>
+            </div>
+            <div class="video-container">
+                <!-- 
+                    视频路径：使用桌面上的视频.mp4
+                    请确保代码文件 (.html)、图片 (个人图片.jpg) 和视频 (视频.mp4) 都放在桌面同一文件夹内
+                -->
+                <video controls preload="metadata" poster="个人图片.jpg">
+                    <source src="视频.mp4" type="video/mp4">
+                    您的浏览器不支持 HTML5 视频播放，请更换现代浏览器或
+                    <a href="视频.mp4">下载视频文件</a>。
+                </video>
+            </div>
+            <div class="video-caption">
+                ⏯️ 三分钟试讲片段 —— 讲解汉语趋向补语（2025年教学实践录制）
+            </div>
+        </div>
+
+        <!-- 研究方向 -->
+        <div class="section">
+            <h2 class="section-title">研究方向</h2>
+            <div class="tag-cloud">
+                <span class="tag">汉语作为第二语言教学</span>
+                <span class="tag">跨文化交际与适应</span>
+                <span class="tag">语言学习动机</span>
+                <span class="tag">数字化汉语学习</span>
+                <span class="tag">中华文化传播</span>
+            </div>
+            <div class="desc-text" style="margin-top: 16px;">
+                具体研究兴趣包括：非目的语环境下的汉语学习策略、国际中文教育中的文化融入、以及新手汉语教师的课堂决策。
+            </div>
+        </div>
+
+        <!-- 实践与兼职 -->
+        <div class="section">
+            <h2 class="section-title">实践与兼职</h2>
+            <ul class="award-list" style="list-style: none; padding-left: 0;">
+                <li style="padding-left: 0;">✨ 学院“语伴桥”项目学生负责人（对接留学生与中国学生的语言交换）</li>
+                <li style="padding-left: 0;">✨ 校级普通话培训助教（辅助教师进行语音正音训练）</li>
+                <li style="padding-left: 0;">✨ 线上中文辅导平台“Chinesepod”内容审核实习生（2025.06-2025.09）</li>
+            </ul>
+        </div>
+
+        <!-- 获奖情况 -->
+        <div class="section">
+            <h2 class="section-title">获奖情况</h2>
+            <ul class="award-list">
+                <li>2024-2025学年 XX大学“优秀学生二等奖学金”</li>
+                <li>2025年5月 全国大学生语言文字能力大赛（专业组）三等奖</li>
+                <li>2024年11月 校国际文化节“文化传播使者”称号</li>
+                <li>2023年12月 人文学院“新生演讲比赛”最佳内容奖</li>
+                <li>2025年“中外语言交换伙伴”项目优秀组织者</li>
+            </ul>
+        </div>
+
+        <!-- 参考资料 -->
+        <div class="references">
+            <div class="ref-title">参考资料</div>
+            <ul class="ref-list">
+                <li>[1] 学生信息．XX大学人文学院 [引用日期2026-02-20]</li>
+                <li>[2] XX大学主页平台管理系统 xiadan--主页--实践项目．XX大学．2025-12-10</li>
+                <li>[3] 获奖公示．全国大学生语言文字能力大赛官网．2025-06-15</li>
+                <li>[4] 师资队伍（学生工作团队）．XX大学．2026-01-08</li>
+            </ul>
+        </div>
+
+        <!-- 底部 -->
+        <div class="wiki-footer">
+            <span>⚙️ 百科已开放本人编辑服务，若您为词条本人可免费认领</span><br>
+            <span style="font-size: 0.75rem;">页面包含可播放视频 · 最后编辑于2026-03-11</span>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px; font-size: 0.8rem; color: #aaa;">
+            <span>📤 分享到</span> 微信 朋友圈
+        </div>
+    </div>
+</body>
+</html>
